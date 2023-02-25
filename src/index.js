@@ -7,12 +7,12 @@ const languages = [
   {
     name: "Cadence",
     parsers: ["cadence"],
-    // tmScope: "source.cs",
-    // aceMode: "csharp",
+    tmScope: "source.cadence",
+    aceMode: "text",
     // codemirrorMode: "clike",
-    extensions: [".cdc"]
-    // vscodeLanguageIds: ["cadence"],
-    // linguistLanguageId: 42
+    extensions: [".cdc"],
+    vscodeLanguageIds: ["cadence"],
+    linguistLanguageId: 270184138
   }
 ];
 
