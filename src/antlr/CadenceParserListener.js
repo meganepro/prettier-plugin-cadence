@@ -101,6 +101,15 @@ CadenceParserListener.prototype.exitParameter = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#parameter_name.
+CadenceParserListener.prototype.enterParameter_name = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#parameter_name.
+CadenceParserListener.prototype.exitParameter_name = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#negate_prefix_operator.
 CadenceParserListener.prototype.enterNegate_prefix_operator = function(ctx) {
 };
@@ -245,6 +254,24 @@ CadenceParserListener.prototype.exitSelf_expression = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#object_expression.
+CadenceParserListener.prototype.enterObject_expression = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#object_expression.
+CadenceParserListener.prototype.exitObject_expression = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#object_access.
+CadenceParserListener.prototype.enterObject_access = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#object_access.
+CadenceParserListener.prototype.exitObject_access = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#literal_expression.
 CadenceParserListener.prototype.enterLiteral_expression = function(ctx) {
 };
@@ -317,6 +344,15 @@ CadenceParserListener.prototype.exitAssignment_operator = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#compilation_condition.
+CadenceParserListener.prototype.enterCompilation_condition = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#compilation_condition.
+CadenceParserListener.prototype.exitCompilation_condition = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#compilation_condition_AND.
 CadenceParserListener.prototype.enterCompilation_condition_AND = function(ctx) {
 };
@@ -335,12 +371,48 @@ CadenceParserListener.prototype.exitCompilation_condition_OR = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#compilation_condition_NOT.
+CadenceParserListener.prototype.enterCompilation_condition_NOT = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#compilation_condition_NOT.
+CadenceParserListener.prototype.exitCompilation_condition_NOT = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#compilation_condition_ET.
+CadenceParserListener.prototype.enterCompilation_condition_ET = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#compilation_condition_ET.
+CadenceParserListener.prototype.exitCompilation_condition_ET = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#compilation_condition_GE.
 CadenceParserListener.prototype.enterCompilation_condition_GE = function(ctx) {
 };
 
 // Exit a parse tree produced by CadenceParser#compilation_condition_GE.
 CadenceParserListener.prototype.exitCompilation_condition_GE = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#compilation_condition_LE.
+CadenceParserListener.prototype.enterCompilation_condition_LE = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#compilation_condition_LE.
+CadenceParserListener.prototype.exitCompilation_condition_LE = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#compilation_condition_G.
+CadenceParserListener.prototype.enterCompilation_condition_G = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#compilation_condition_G.
+CadenceParserListener.prototype.exitCompilation_condition_G = function(ctx) {
 };
 
 
@@ -488,6 +560,51 @@ CadenceParserListener.prototype.exitContract_declaration = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#resource_interface_declaration.
+CadenceParserListener.prototype.enterResource_interface_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#resource_interface_declaration.
+CadenceParserListener.prototype.exitResource_interface_declaration = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#resource_implementation_declaration.
+CadenceParserListener.prototype.enterResource_implementation_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#resource_implementation_declaration.
+CadenceParserListener.prototype.exitResource_implementation_declaration = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#resource_implementation_definition.
+CadenceParserListener.prototype.enterResource_implementation_definition = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#resource_implementation_definition.
+CadenceParserListener.prototype.exitResource_implementation_definition = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#struct_interface_declaration.
+CadenceParserListener.prototype.enterStruct_interface_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#struct_interface_declaration.
+CadenceParserListener.prototype.exitStruct_interface_declaration = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#struct_implementation_declaration.
+CadenceParserListener.prototype.enterStruct_implementation_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#struct_implementation_declaration.
+CadenceParserListener.prototype.exitStruct_implementation_declaration = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#constant_declaration.
 CadenceParserListener.prototype.enterConstant_declaration = function(ctx) {
 };
@@ -506,6 +623,60 @@ CadenceParserListener.prototype.exitFunction_declaration = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#phase_declaration.
+CadenceParserListener.prototype.enterPhase_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#phase_declaration.
+CadenceParserListener.prototype.exitPhase_declaration = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#pre_phase_head.
+CadenceParserListener.prototype.enterPre_phase_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#pre_phase_head.
+CadenceParserListener.prototype.exitPre_phase_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#execute_phase_head.
+CadenceParserListener.prototype.enterExecute_phase_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#execute_phase_head.
+CadenceParserListener.prototype.exitExecute_phase_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#post_phase_head.
+CadenceParserListener.prototype.enterPost_phase_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#post_phase_head.
+CadenceParserListener.prototype.exitPost_phase_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#transaction_phase_head.
+CadenceParserListener.prototype.enterTransaction_phase_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#transaction_phase_head.
+CadenceParserListener.prototype.exitTransaction_phase_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#prepare_phase_head.
+CadenceParserListener.prototype.enterPrepare_phase_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#prepare_phase_head.
+CadenceParserListener.prototype.exitPrepare_phase_head = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#variable_declaration.
 CadenceParserListener.prototype.enterVariable_declaration = function(ctx) {
 };
@@ -521,6 +692,42 @@ CadenceParserListener.prototype.enterVariable_declaration_head = function(ctx) {
 
 // Exit a parse tree produced by CadenceParser#variable_declaration_head.
 CadenceParserListener.prototype.exitVariable_declaration_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#variable_body.
+CadenceParserListener.prototype.enterVariable_body = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#variable_body.
+CadenceParserListener.prototype.exitVariable_body = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#event_declaration.
+CadenceParserListener.prototype.enterEvent_declaration = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#event_declaration.
+CadenceParserListener.prototype.exitEvent_declaration = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#event_declaration_head.
+CadenceParserListener.prototype.enterEvent_declaration_head = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#event_declaration_head.
+CadenceParserListener.prototype.exitEvent_declaration_head = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#event_body.
+CadenceParserListener.prototype.enterEvent_body = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#event_body.
+CadenceParserListener.prototype.exitEvent_body = function(ctx) {
 };
 
 
@@ -674,6 +881,33 @@ CadenceParserListener.prototype.enterAssignment_statement = function(ctx) {
 
 // Exit a parse tree produced by CadenceParser#assignment_statement.
 CadenceParserListener.prototype.exitAssignment_statement = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#check_statement.
+CadenceParserListener.prototype.enterCheck_statement = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#check_statement.
+CadenceParserListener.prototype.exitCheck_statement = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#check_statement_conditions.
+CadenceParserListener.prototype.enterCheck_statement_conditions = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#check_statement_conditions.
+CadenceParserListener.prototype.exitCheck_statement_conditions = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#check_statement_message.
+CadenceParserListener.prototype.enterCheck_statement_message = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#check_statement_message.
+CadenceParserListener.prototype.exitCheck_statement_message = function(ctx) {
 };
 
 
@@ -872,6 +1106,24 @@ CadenceParserListener.prototype.enterType_name = function(ctx) {
 
 // Exit a parse tree produced by CadenceParser#type_name.
 CadenceParserListener.prototype.exitType_name = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#type_name_alias.
+CadenceParserListener.prototype.enterType_name_alias = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#type_name_alias.
+CadenceParserListener.prototype.exitType_name_alias = function(ctx) {
+};
+
+
+// Enter a parse tree produced by CadenceParser#composite_types.
+CadenceParserListener.prototype.enterComposite_types = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#composite_types.
+CadenceParserListener.prototype.exitComposite_types = function(ctx) {
 };
 
 

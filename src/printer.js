@@ -32,7 +32,7 @@ function getAny(node, types) {
 ////////////////////////////////////////////////////////////////////////
 // Util
 ////////////////////////////////////////////////////////////////////////
-const concat_docs = (path, print, keywords, sep = " ") => {
+const concat_docs = (path, print, keywords, { sep = " " }) => {
   return join(
     sep,
     keywords.map((keyword) => {
@@ -41,11 +41,16 @@ const concat_docs = (path, print, keywords, sep = " ") => {
   );
 };
 
-const concat_children = (path, print, children, sep = " ") => {
+const concat_children = (
+  path,
+  print,
+  children,
+  { key = "children", sep = " " }
+) => {
   return join(
     sep,
     children.map((_, index) => {
-      return path.call(print, "children", index);
+      return path.call(print, key, index);
     })
   );
 };
@@ -61,7 +66,8 @@ const contract_declaration = (path, print) => {
   const code_block = path.call(print, "code_block", 0);
 
   return [
-    group(join(" ", [modifier, contract, contract_name])),
+    join(" ", [modifier, contract, contract_name]),
+    // group(join(" ", [modifier, contract, contract_name])),
     " ",
     code_block
   ];
@@ -70,13 +76,18 @@ const contract_declaration = (path, print) => {
 // cf. access(all) let greeting: String
 const constant_declaration = (path, print) => {
   return [
-    group(
-      concat_docs(path, print, [
-        "declaration_modifiers",
-        "terminal", // let or var
-        "pattern_initializer_list"
-      ])
-    ),
+    // group(
+      concat_docs(
+        path,
+        print,
+        [
+          "declaration_modifiers",
+          "terminal", // let or var
+          "pattern_initializer_list"
+        ],
+        {}
+      ),
+    // ),
     softline
   ];
 };
@@ -85,13 +96,10 @@ const constant_declaration = (path, print) => {
 const initializer_declaration = (path, print) => {
   return group(
     join(" ", [
-      concat_docs(
-        path,
-        print,
-        ["initializer_head", "parameter_clause"],
-        (sep = "")
-      ),
-      concat_docs(path, print, ["initializer_body"])
+      concat_docs(path, print, ["initializer_head", "parameter_clause"], {
+        sep: ""
+      }),
+      concat_docs(path, print, ["initializer_body"], {})
       // docBuilders.indentIfBreak(concat_docs(path, print, ["initializer_body"]), {groupId: "{}"})
     ])
   );
@@ -107,24 +115,31 @@ const code_block = (path, print) => {
 };
 
 // cf. access(all) fun hello(): String {...}
-const function_declaration = (path, print) => {
-  return group([
+const function_declaration = (path, print, hasBody=true) => {
+  docs = [
     path.call(print, "function_head", 0),
     " ",
     path.call(print, "function_name", 0),
     path.call(print, "function_signature", 0),
-    " ",
-    path.call(print, "function_body", 0)
-  ]);
+  ]
+  if (hasBody) {
+    docs.push(" ")
+    docs.push(path.call(print, "function_body", 0))
+  }
+  docs.push(hardline)
+  docs.push(hardline)
+  return docs;
 };
 
 function printNode(path, options, print) {
   const node = path.getValue();
-  if(node.comments){
-    console.log(node.comments)
-    console.log(node)
-    // return node.comments
-  }
+  // if(node.comments){
+  //   console.log(node.comments)
+  //   console.log(node)
+  //   // return node.comments
+  // }
+  console.log(node.nodeType);
+  // console.log(node)
   switch (node.nodeType) {
     case "contract_declaration":
       return contract_declaration(path, print);
@@ -142,20 +157,45 @@ function printNode(path, options, print) {
         (sep = [hardline, hardline])
       );
     case "function_declaration":
-      return function_declaration(path, print);
+      return function_declaration(path, print, 'function_body' in node);
+    case "parameter_list":
+      return concat_children(path, print, node.parameter, {
+        key: "parameter",
+        sep: ", "
+      });
+    case "composite_types":
+      return [
+        ": ",
+        concat_children(path, print, node.type, { key: "type", sep: ", " }),
+        " ",
+      ];
     case "terminal":
       return node.value;
     // concat with space
     case "function_head":
+    case "variable_declaration_head":
+    case "event_declaration_head":
+    case "parameter_name":
     case "type_annotation":
     case "assignment_statement":
     case "return_statement":
-      return concat_children(path, print, node.children, (sep = " "));
+    case "check_statement_conditions":
+    case "check_statement_message":
+    case "resource_implementation_declaration":
+    case "resource_interface_declaration":
+      return concat_children(path, print, node.children, { sep: " " });
+    // concat with space and hardline
+    case "variable_declaration":
+    case "event_declaration":
+      return [
+        concat_children(path, print, node.children, { sep: " " }),
+        hardline
+      ];
     // concat with ""
     case "pattern":
     default:
       // console.log(node);
-      return concat_children(path, print, node.children, (sep = ""));
+      return concat_children(path, print, node.children, { sep: "" });
   }
 }
 
@@ -167,7 +207,7 @@ function printComment(path, options) {
 
   if (node.value.startsWith("//")) {
     return node.value.trimRight();
-    return [hardline, node.value.trimRight()];
+    // return [hardline, node.value.trimRight()];
   } else {
     return node.value;
   }
@@ -203,8 +243,9 @@ function handleOwnLineComments(
 ) {
   if (
     comment.followingNode &&
-    ["#if", "#region"].some((d) => comment.value.startsWith(d))
+    ["//"].some((d) => comment.value.startsWith(d))
   ) {
+    // console.log(comment)
     util.addLeadingComment(comment.followingNode, comment);
     return true;
   } else if (
@@ -213,7 +254,7 @@ function handleOwnLineComments(
       comment.value.startsWith(d)
     )
   ) {
-    util.addTrailingComment(comment.precedingNode, comment);
+    // util.addTrailingComment(comment.precedingNode, comment);
     return true;
   }
 
@@ -226,9 +267,7 @@ function handleEndOfLineComments(
   // console.log(comment)
   if (
     comment.precedingNode &&
-    ["//"].some((d) =>
-      comment.value.startsWith(d)
-    )
+    ["//"].some((d) => comment.value.startsWith(d))
   ) {
     // util.addDanglingComment(comment.precedingNode, comment);
     util.addLeadingComment(comment.precedingNode, comment);
