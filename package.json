@@ -1,7 +1,7 @@
 {
   "name": "prettier-plugin-cadence",
   "version": "0.0.1",
-  "description": "",
+  "description": "Prettier Cadence Plugin",
   "type": "commonjs",
   "main": "src",
   "scripts": {
