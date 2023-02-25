@@ -6,6 +6,7 @@
   "main": "src",
   "scripts": {
     "example": "prettier --plugin . input.cdc",
+    "example2": "prettier --plugin . NonFungibleToken.cdc",
     "test": "jest"
   },
   "keywords": [

@@ -49,7 +49,7 @@ const cadenceParser = (text) => {
   result.comments = tokens.tokens
     .filter(
       (token) =>
-        token.channel == 1
+        token.channel == 2
     )
     .map((token) => buildComment(token));
   // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
@@ -111,10 +111,8 @@ function buildComment(token) {
 
 function getNodeTypeFromChannel(token) {
   switch (token.channel) {
-    case CadenceLexer.HIDDEN:
+    case CadenceLexer.COMMENTS:
       return "comment";
-    case CadenceLexer.DEFAULT_TOKEN_CHANNEL:
-      return "directive";
   }
   return "unknown";
 }
