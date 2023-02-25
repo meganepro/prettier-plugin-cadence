@@ -12,6 +12,10 @@ Flowでは、Blockchainでは、実行したトランザクションの透明性
 そこで、本プロジェクトでは、`Cadence`の標準フォーマッターの開発を行う。  
 Formatterとしては複数の開発言語でよく利用されている`Prettier`を使用し、PrettierのPluginとしての開発をすすめる。
 
+# image
+
+![alt](image.drawio.png)
+
 # Related Project
 
 - [cadence-ast](https://github.com/meganepro/cadence-ast)
