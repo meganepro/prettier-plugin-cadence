@@ -767,6 +767,15 @@ CadenceParserListener.prototype.exitCode_block = function(ctx) {
 };
 
 
+// Enter a parse tree produced by CadenceParser#class_block.
+CadenceParserListener.prototype.enterClass_block = function(ctx) {
+};
+
+// Exit a parse tree produced by CadenceParser#class_block.
+CadenceParserListener.prototype.exitClass_block = function(ctx) {
+};
+
+
 // Enter a parse tree produced by CadenceParser#function_head.
 CadenceParserListener.prototype.enterFunction_head = function(ctx) {
 };
