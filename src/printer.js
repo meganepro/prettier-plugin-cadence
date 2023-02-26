@@ -63,13 +63,13 @@ const contract_declaration = (path, print) => {
   const modifier = path.call(print, "access_level_modifier", 0);
   const contract = path.call(print, "terminal", 0); // contract
   const contract_name = path.call(print, "identifier", 0);
-  const code_block = path.call(print, "code_block", 0);
+  const class_block = path.call(print, "class_block", 0);
 
   return [
     join(" ", [modifier, contract, contract_name]),
     // group(join(" ", [modifier, contract, contract_name])),
     " ",
-    code_block
+    class_block
   ];
 };
 
@@ -77,16 +77,16 @@ const contract_declaration = (path, print) => {
 const constant_declaration = (path, print) => {
   return [
     // group(
-      concat_docs(
-        path,
-        print,
-        [
-          "declaration_modifiers",
-          "terminal", // let or var
-          "pattern_initializer_list"
-        ],
-        {}
-      ),
+    concat_docs(
+      path,
+      print,
+      [
+        "declaration_modifiers",
+        "terminal", // let or var
+        "pattern_initializer_list"
+      ],
+      {}
+    ),
     // ),
     softline
   ];
@@ -106,28 +106,38 @@ const initializer_declaration = (path, print) => {
 };
 
 // cf. {...}
+const class_block = (path, print) => {
+  return [
+    indent(["{", hardline, hardline, path.call(print, "statements", 0)]),
+    hardline,
+    dedent("}")
+    // softline
+  ];
+};
+
+// cf. {...}
 const code_block = (path, print) => {
   return [
     indent(join(hardline, ["{", path.call(print, "statements", 0)])),
     hardline,
     dedent("}")
+    // softline
   ];
 };
 
 // cf. access(all) fun hello(): String {...}
-const function_declaration = (path, print, hasBody=true) => {
+const function_declaration = (path, print, hasBody = true) => {
   docs = [
     path.call(print, "function_head", 0),
     " ",
     path.call(print, "function_name", 0),
-    path.call(print, "function_signature", 0),
-  ]
+    path.call(print, "function_signature", 0)
+  ];
   if (hasBody) {
-    docs.push(" ")
-    docs.push(path.call(print, "function_body", 0))
+    docs.push(" ");
+    docs.push(path.call(print, "function_body", 0));
   }
-  docs.push(hardline)
-  docs.push(hardline)
+  docs.push(hardline);
   return docs;
 };
 
@@ -138,7 +148,7 @@ function printNode(path, options, print) {
   //   console.log(node)
   //   // return node.comments
   // }
-  console.log(node.nodeType);
+  // console.log(node.nodeType);
   // console.log(node)
   switch (node.nodeType) {
     case "contract_declaration":
@@ -149,15 +159,12 @@ function printNode(path, options, print) {
       return initializer_declaration(path, print);
     case "code_block":
       return code_block(path, print);
+    case "class_block":
+      return class_block(path, print);
     case "statements":
-      return concat_children(
-        path,
-        print,
-        node.children,
-        (sep = [hardline, hardline])
-      );
+      return concat_children(path, print, node.children, { sep: hardline });
     case "function_declaration":
-      return function_declaration(path, print, 'function_body' in node);
+      return function_declaration(path, print, "function_body" in node);
     case "parameter_list":
       return concat_children(path, print, node.parameter, {
         key: "parameter",
@@ -167,9 +174,10 @@ function printNode(path, options, print) {
       return [
         ": ",
         concat_children(path, print, node.type, { key: "type", sep: ", " }),
-        " ",
+        " "
       ];
     case "terminal":
+      if (node.value == "<EOF>") return "";
       return node.value;
     // concat with space
     case "function_head":
@@ -181,10 +189,10 @@ function printNode(path, options, print) {
     case "return_statement":
     case "check_statement_conditions":
     case "check_statement_message":
-    case "resource_implementation_declaration":
-    case "resource_interface_declaration":
       return concat_children(path, print, node.children, { sep: " " });
     // concat with space and hardline
+    case "resource_implementation_declaration":
+    case "resource_interface_declaration":
     case "variable_declaration":
     case "event_declaration":
       return [
@@ -246,15 +254,14 @@ function handleOwnLineComments(
     ["//"].some((d) => comment.value.startsWith(d))
   ) {
     // console.log(comment)
+    // console.log(comment.precedingNode)
     util.addLeadingComment(comment.followingNode, comment);
     return true;
   } else if (
     comment.precedingNode &&
-    ["#endregion", "#elif", "#else", "#endif"].some((d) =>
-      comment.value.startsWith(d)
-    )
+    ["//"].some((d) => comment.value.startsWith(d))
   ) {
-    // util.addTrailingComment(comment.precedingNode, comment);
+    util.addTrailingComment(comment.precedingNode, comment);
     return true;
   }
 

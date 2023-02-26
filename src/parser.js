@@ -52,8 +52,6 @@ const cadenceParser = (text) => {
         token.channel == 2
     )
     .map((token) => buildComment(token));
-  // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  // console.log(result.comments)
   return result;
 };
 
