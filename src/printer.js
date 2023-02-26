@@ -59,17 +59,18 @@ const concat_children = (
 // Format Rule
 ////////////////////////////////////////////////////////////////////////
 // cf. access(all) contract HelloWorld {...}
-const contract_declaration = (path, print) => {
-  const modifier = path.call(print, "access_level_modifier", 0);
-  const contract = path.call(print, "terminal", 0); // contract
-  const contract_name = path.call(print, "identifier", 0);
-  const class_block = path.call(print, "class_block", 0);
+const contract_declaration = (path, print, terminalLength) => {
+  const docs = []
+  docs.push(path.call(print, "access_level_modifier", 0))
+  Array.from({length: terminalLength}, (v, k) => {
+    docs.push(path.call(print, "terminal", k))
+  });
+  docs.push(path.call(print, "identifier", 0));
 
   return [
-    join(" ", [modifier, contract, contract_name]),
-    // group(join(" ", [modifier, contract, contract_name])),
+    join(" ", docs),
     " ",
-    class_block
+    path.call(print, "class_block", 0)
   ];
 };
 
@@ -99,8 +100,8 @@ const initializer_declaration = (path, print) => {
       concat_docs(path, print, ["initializer_head", "parameter_clause"], {
         sep: ""
       }),
-      concat_docs(path, print, ["initializer_body"], {})
-      // docBuilders.indentIfBreak(concat_docs(path, print, ["initializer_body"]), {groupId: "{}"})
+      concat_docs(path, print, ["initializer_body"], {}),
+      hardline
     ])
   );
 };
@@ -152,7 +153,7 @@ function printNode(path, options, print) {
   // console.log(node)
   switch (node.nodeType) {
     case "contract_declaration":
-      return contract_declaration(path, print);
+      return contract_declaration(path, print, node.terminal.length);
     case "constant_declaration":
       return constant_declaration(path, print);
     case "initializer_declaration":
@@ -174,7 +175,6 @@ function printNode(path, options, print) {
       return [
         ": ",
         concat_children(path, print, node.type, { key: "type", sep: ", " }),
-        " "
       ];
     case "terminal":
       if (node.value == "<EOF>") return "";
