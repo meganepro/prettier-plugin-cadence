@@ -50,6 +50,11 @@ _Translated with www.DeepL.com/Translator (free version)_
   - [prettier-plugin-cadence](https://github.com/meganepro/prettier-plugin-cadence)
 - VSCode Prettier Plugin
   - [prettier-cadence-formatter](https://github.com/meganepro/prettier-cadence-formatter)
+- [DEMO PAGE](https://prettier-plugin-tester.vercel.app/)
+  - [prettier-plugin-tester](https://github.com/meganepro/prettier-plugin-tester)
+  - Currently, only the syntax used in the following contracts can be supported
+    - HelloWorld
+    - NonFungibleToken
 
 # Run
 
